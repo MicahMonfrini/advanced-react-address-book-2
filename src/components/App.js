@@ -5,12 +5,17 @@ import "./App.css";
 import ListOfUsers from "./ListOfUsers";
 
 class App extends Component {
+
   constructor(props) {
-    super(props)
+    super(props);
 
     this.state = {
-
-    }
+      addText: "Select User",
+      removeText: null,
+      message: "No users selected",
+      selectedUserList: [],
+      userList: this.props.users
+    };
   }
 
   render() {
@@ -24,14 +29,27 @@ class App extends Component {
           Available Users
         </h2>
         <ListOfUsers
-          users={this.props.users}
+          users={this.state.userList}
+          onUserSelect={(selectedUser) => {
+            this.setState({
+              message: null,
+              removeText: "Remove User",
+              selectedUserList: [
+                ...this.state.selectedUserList,
+                selectedUser
+              ],
+            });
+          }}
+          buttonText={this.state.addText}
         />
         <h2>
           Selected Users
         </h2>
         <ListOfUsers
-          users={[]}
-          message={"No users selected"}
+          users={this.state.selectedUserList}
+          onUserSelect={() => {}}
+          message={this.state.message}
+          buttonText={this.state.removeText}
         />
       </div>
     );

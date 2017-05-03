@@ -10,8 +10,9 @@ class UserDetail extends Component {
     return (
       <div>
         {this.props.user.firstName} {this.props.user.lastName}
-        <button onClick={this.props.handleClick}>
-          Select User
+        <button
+          onClick={this.props.handleClick}>
+          {this.props.buttonText}
         </button>
       </div>
     );

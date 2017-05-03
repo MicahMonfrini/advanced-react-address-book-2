@@ -6,14 +6,6 @@ class ListOfUsers extends Component {
   constructor(props) {
     super(props);
 
-    this.state = {
-      message: this.props.message
-    };
-
-  }
-
-  handleClick() {
-    console.log("User was clicked");
   }
 
   render() {
@@ -22,14 +14,17 @@ class ListOfUsers extends Component {
         <UserDetail
           key={index}
           user={user}
-          handleClick={this.handleClick}
+          handleClick={() => {
+            this.props.onUserSelect(user);
+          }}
+          buttonText={this.props.buttonText}
         />
       );
     });
     return (
       <div>
         {userList}
-        {this.state.message}
+        {this.props.message}
       </div>
     );
   }
@@ -37,7 +32,8 @@ class ListOfUsers extends Component {
 
 ListOfUsers.propTypes = {
   users: PropTypes.array.isRequired,
-  message: PropTypes.string
+  message: PropTypes.string,
+  onUserSelect: PropTypes.func.isRequired
 };
 
 export default ListOfUsers;
