@@ -12,12 +12,17 @@ class ListOfUsers extends Component {
 
   }
 
+  handleClick() {
+    console.log("User was clicked");
+  }
+
   render() {
     const userList = this.props.users.map((user, index) => {
       return (
         <UserDetail
           key={index}
           user={user}
+          handleClick={this.handleClick}
         />
       );
     });
@@ -31,7 +36,8 @@ class ListOfUsers extends Component {
 }
 
 ListOfUsers.propTypes = {
-  users: PropTypes.array.isRequired
+  users: PropTypes.array.isRequired,
+  message: PropTypes.string
 };
 
 export default ListOfUsers;

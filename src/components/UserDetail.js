@@ -10,9 +10,7 @@ class UserDetail extends Component {
     return (
       <div>
         {this.props.user.firstName} {this.props.user.lastName}
-        <button onClick={() => {
-          console.log("User was clicked")
-        }}>
+        <button onClick={this.props.handleClick}>
           Select User
         </button>
       </div>
@@ -21,6 +19,7 @@ class UserDetail extends Component {
 }
 
 UserDetail.propTypes = {
+  handleClick: PropTypes.func.isRequired,
   user: PropTypes.object.isRequired
 };
 
