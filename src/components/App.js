@@ -4,6 +4,7 @@ import PropTypes from "prop-types";
 import "./App.css";
 import ListOfUsers from "./ListOfUsers";
 
+
 class App extends Component {
 
   constructor(props) {
@@ -11,11 +12,50 @@ class App extends Component {
 
     this.state = {
       addText: "Select User",
-      removeText: null,
+      removeText: "",
       message: "No users selected",
       selectedUserList: [],
       userList: this.props.users
     };
+  }
+
+  selectUser(selectedUser) {
+    this.setState({
+      message: null,
+      removeText: "Remove User",
+      userList: [
+        ...this.state.userList].filter((item) => {
+          return item !== selectedUser;
+        }),
+      selectedUserList: [
+        ...this.state.selectedUserList,
+        selectedUser
+      ],
+    });
+  }
+
+  removeUser(selectedUser) {
+    this.setState({
+      selectedUserList: [
+        ...this.state.selectedUserList].filter((item) => {
+          return item !== selectedUser;
+        }),
+      userList: [
+        ...this.state.userList,
+        selectedUser
+      ],
+      message: this.state.selectedUserList.length > 1 ? "" : "No users selected"
+    });
+  }
+
+  resetState() {
+    this.setState({
+      addText: "Select User",
+      removeText: "",
+      message: "No users selected",
+      selectedUserList: [],
+      userList: this.props.users
+    });
   }
 
   render() {
@@ -30,16 +70,7 @@ class App extends Component {
         </h2>
         <ListOfUsers
           users={this.state.userList}
-          onUserSelect={(selectedUser) => {
-            this.setState({
-              message: null,
-              removeText: "Remove User",
-              selectedUserList: [
-                ...this.state.selectedUserList,
-                selectedUser
-              ],
-            });
-          }}
+          onUserSelect={this.selectUser.bind(this)}
           buttonText={this.state.addText}
         />
         <h2>
@@ -47,10 +78,13 @@ class App extends Component {
         </h2>
         <ListOfUsers
           users={this.state.selectedUserList}
-          onUserSelect={() => {}}
-          message={this.state.message}
+          onUserSelect={this.removeUser.bind(this)}
           buttonText={this.state.removeText}
+          message={this.state.message}
         />
+        <button className="Reset-button" onClick={this.resetState.bind(this)}>
+          RESET
+        </button>
       </div>
     );
   }

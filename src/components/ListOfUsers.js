@@ -33,6 +33,7 @@ class ListOfUsers extends Component {
 ListOfUsers.propTypes = {
   users: PropTypes.array.isRequired,
   message: PropTypes.string,
+  buttonText: PropTypes.string,
   onUserSelect: PropTypes.func.isRequired
 };
 
